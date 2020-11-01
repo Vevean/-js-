@@ -1,0 +1,171 @@
+#include<stdio.h>
+#include<stdlib.h> 
+#define MAXSIZE 100
+typedef struct node{
+	int x;
+	int y;
+}node;
+typedef struct node2{
+	int value;
+	int dir;
+	bool find;
+}node2;
+typedef struct Sqstack{
+	node data[MAXSIZE];
+	int top;
+}Sqstack;
+void InitStack(Sqstack *s);
+void Push(Sqstack *S, node e);
+void Pop(Sqstack *S);
+int main(){
+	int map[8][12]={
+		{ 1,1,1,1,1,1,1,1,1,1,1,1 },
+		{ 1,0,0,0,1,0,1,1,1,1,1,1 },
+		{ 1,1,1,0,1,0,0,0,0,0,1,1 },
+		{ 1,1,1,0,1,0,1,1,1,0,1,1 },
+		{ 1,1,1,0,1,0,1,1,1,0,1,1 },
+		{ 1,1,1,0,1,0,1,1,1,0,1,1 },
+		{ 1,0,0,0,0,0,1,0,1,0,0,1 },
+		{ 1,1,1,1,1,1,1,1,1,1,1,1 }};
+	for(int i=0;i<8;i++){
+		for(int j=0;j<12;j++){
+			printf("%d",map[i][j]);
+		}
+		printf("\n");
+	}
+	node2 map2[8][12];
+	for(int i=0;i<8;i++){
+		for(int j=0;j<12;j++){
+			map2[i][j].value=map[i][j];
+			map2[i][j].dir=0;
+			map2[i][j].find=false;
+		}
+	}
+	
+	node now,end;
+	while(1)
+	{
+		printf("请输入入口点:");
+		scanf("%d %d",&now.x,&now.y);
+		if(map[now.x][now.y])
+		{
+			printf("输入是墙壁\n");
+		}
+		else
+		{
+			break;
+		}
+	}
+	while(1)
+	{
+		printf("请输入出口点:");
+		scanf("%d %d",&end.x,&end.y);
+		if(map[end.x][end.y])
+		{
+			printf("输入是墙壁\n");
+		}
+		else
+		{
+			break;
+		}
+	}
+	Sqstack s;
+	InitStack(&s);
+	Push(&s,now);
+	while(1)
+	{
+		switch(map2[now.x][now.y].dir){
+	    case 0:
+			{
+				map2[now.x][now.y].dir++;
+				if(map2[now.x][now.y-1].value==0&&map2[now.x][now.y-1].find==false){
+					map2[now.x][now.y].find=true;
+					now.y--;
+					Push(&s,now);
+				} 
+				break;
+			}
+			
+		case 1:
+			{
+				map2[now.x][now.y].dir++;
+				if(map2[now.x+1][now.y].value==0&&map2[now.x+1][now.y].find==false){
+					map2[now.x][now.y].find=true;
+					now.x++;
+					Push(&s,now);
+				}
+				break;
+			}
+			
+		case 2:
+			{
+				map2[now.x][now.y].dir++;
+				if(map2[now.x][now.y+1].value==0&&map2[now.x][now.y+1].find==false){
+					map2[now.x][now.y].find=true;
+					now.y++;
+					Push(&s,now);
+				}
+				break;
+			}
+			
+		case 3:
+			{
+				map2[now.x][now.y].dir++;
+				if(map2[now.x-1][now.y].value==0&&map2[now.x-1][now.y].find==false){
+					map2[now.x][now.y].find=true;
+					now.x--;
+					Push(&s,now);
+				}
+				break;
+			}
+			
+		default:
+			{
+				Pop(&s);
+				map2[now.x][now.y].find==true;
+				if(s.top==-1)
+				{
+					printf("没有路径能到达出口");
+					return 0;
+				}
+				else
+				{
+					now = s.data[s.top];
+				}
+			}
+		}
+		if(now.x==end.x&&now.y==end.y)
+		{	
+			for(int i=0;i<s.top+1;i++){
+				printf("(%d %d)",s.data[i].x,s.data[i].y); 
+			} 
+			break;
+		}	
+	}
+	
+}
+void InitStack(Sqstack *s){
+	s->top=-1;
+}
+void Push(Sqstack *S, node e)				//进栈函数，e为新加入栈顶的元素
+{
+	if (S->top == MAXSIZE - 1)				//如果栈已经满了
+	{
+		printf("栈已满！");
+		return;
+	}
+	S->top++;								//使栈顶指针top加1
+	S->data[S->top] = e;					//将新元素e加入
+}
+void Pop(Sqstack *S)			//出栈函数
+{
+	if (S->top == -1)									//如果当前栈为空，就返回
+	{
+		printf("栈已为空，无法出栈！\n");
+		return;
+	}
+	S->top--;									//使栈顶指针减1
+}
+
+
+
