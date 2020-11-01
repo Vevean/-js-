@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>力扣31</title>
+</head>
+<body>
+    <script>
+        var nextPermutation = function(nums){
+            let len = nums.length;
+            if(len <= 1) return;
+            for(let i = len - 2;i>=0;i--)//i指向倒数第二个元素，控制左值
+                {
+                    if(nums[i]<nums[i+1]){//倒着遍历，找出第一个左值大于右值
+                        for(let j = len - 1;j>i;j--){//j指向最后一个元素，找出比左值i大的第一个元素
+                            if(nums[j]>nums[i]){
+                                swap(i,j,nums);//找到了之后进行叫唤
+                                break;
+                            }
+                        }
+                        let x = i+1,y = len - 1;
+                        while(x<y) swap(x++,y--,nums);
+                        break;
+                    }
+                    if(i==0){
+                        let x = i,y = len - 1;
+                        while(x<y) swap(x++,y--,nums)
+                    }
+                }
+        };
+        function swap(i,j,nums){
+            let t = nums[i];
+            nums[i] = nums[j];
+            nums[j] = t;
+        }
+    </script>
+</body>
+</html>
