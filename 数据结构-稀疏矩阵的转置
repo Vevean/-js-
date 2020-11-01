@@ -1,0 +1,75 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct node{
+	int x;
+	int y;
+	int value;
+}node;//定义一个三元组存储有效元素
+typedef struct matrix{
+	int row;//行
+	int col;//列
+	int number; //有效元素个数
+	node data[20000]; 
+}matrix; //定义一个三元组的矩阵
+matrix a;
+matrix b;
+void trans(){
+	b.row = a.col;
+	b.col = a.row;
+	b.number = a.number;
+	if(b.number>0){//把a的有效数字赋值到b中 
+		int p=1;
+		for(int i=1;i<=a.col;i++){
+			for(int j=1;j<=a.number;j++){
+				if(a.data[j].y == i){
+					b.data[p].x = a.data[j].y;
+					b.data[p].y = a.data[j].x;
+					b.data[p].value = a.data[j].value;
+					p++;		
+				}
+			}
+		}
+	}
+}
+int main(){
+	int r,c;
+	int num;
+	int t=1; 
+	printf("请输入稀疏矩阵的行和列");
+	scanf("%d %d",&r,&c);
+	a.row = r;
+	a.col = c;
+	a.number = 0;// 先把有效元素初始化为0 
+	printf("请输入稀疏矩阵的元素");
+	for(int i = 1;i <= r;i++){
+		for(int j = 1;j <= c;j++){
+			scanf("%d",&num);
+			if(num!=0){//给a添加有效元素 
+				a.data[t].x = i;
+				a.data[t].y = j;
+				a.data[t].value = num;
+				t++;
+				a.number++;
+			}	
+		}
+	}
+	trans();
+	t=1;
+	int sum=0;//控制换行 
+	for(int i = 1;i <= c;i++){
+		for(int j = 1;j <= r;j++){
+			if(b.data[t].y == j&&b.data[t].x == i){
+				printf("%d ",b.data[t].value);
+				t++;
+			}
+			else
+				printf("0 ");
+			sum++;
+			if(sum%r==0){
+				printf("\n");
+			}
+		}
+	}
+	
+	return 0;	
+}
