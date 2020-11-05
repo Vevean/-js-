@@ -10,7 +10,7 @@ typedef struct matrix{
 	int col;//列
 	int number; //有效元素个数
 	node data[20000]; 
-}matrix; //定义一个三元组的矩阵
+}matrix; //定义一个有效三元组的矩阵
 matrix a;
 matrix b;
 void trans(){
