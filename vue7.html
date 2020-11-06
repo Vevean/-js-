@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件化使用</title>
+</head>
+<body>
+    <!--使用组件 -->
+    <div id="app">
+        <my-cpn></my-cpn>
+        <my-cpn></my-cpn>
+        <my-cpn></my-cpn>
+        <my-cpn></my-cpn>
+        <cpn1></cpn1>
+        <cpn1></cpn1>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        //1.创建组件
+        const cpnc = Vue.extend({
+            template:`
+            <div>
+                <h2>我是猪</h2>
+                <p>啦啦啦</p>
+                <p>吼吼吼</p>
+            </div>
+            `
+        })
+        //2.注册全局组件
+        //Vue.component('my-cpn',cpnc)
+        const app = new Vue({
+            el:"#app",
+            components:{
+                cpn1:cpnc
+            }
+        })
+    </script>
+</body>
+</html>

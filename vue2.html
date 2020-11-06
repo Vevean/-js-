@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+   
+</head>
+<body>
+    <div id="app">
+        <h2>当前计数：{{counter}}</h2>
+        <!--<button v-on:click="counter++">+</button>
+        <button v-on:click="counter--">-</button>事件内容少的话直接用，多的话用函数-->
+        <button v-on:click="add">+</button>
+        <button v-on:click="sub">-</button>
+        <h2 v-html="url"></h2>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const app =  new Vue({
+            el:'#app',
+            data:{
+                counter:0,
+                url:'<a href="http://www.baidu.com">百度一下</a>'
+            },
+            methods:{
+                add:function(){
+                    this.counter++;
+                },
+                sub:function(){
+                    this.counter--;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

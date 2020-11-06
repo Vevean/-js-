@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+   
+</head>
+<body>
+    <div id="app">
+        <img :src="imghref" alt="">
+        <a v-bind:href="ahref">百度一下</a>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                imghref:'https://img.alicdn.com/imgextra/https://img.alicdn.com/imgextra/i1/504729396/O1CN01s4V8N42JHQ425G2Zr-504729396.jpg_430x430q90.jpg',
+                ahref:'https://www.baidu.com'
+            }
+        })
+    </script>
+</body>
+</html>
